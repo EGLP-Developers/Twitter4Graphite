@@ -47,7 +47,7 @@ public class TwitterAPI {
 	
 	public List<TwitterUser> getUsersByIDs(List<String> ids) {
 		JSONObject obj = makeGetRequest(TwitterEndpoint.USERS_BY_ID.getURL(), "user.fields", "profile_image_url", "ids", ids.stream().collect(Collectors.joining(",")));
-		if(obj.containsKey("errors")) return null;
+		if(obj.containsKey("errors") || !obj.containsKey("data")) return null;
 		return obj.getJSONArray("data").stream()
 				.map(t -> JSONConverter.decodeObject((JSONObject) t, TwitterUser.class))
 				.collect(Collectors.toList());
@@ -55,7 +55,7 @@ public class TwitterAPI {
 	
 	public List<Tweet> getTimelineSince(String userID, String lastTweetID) {
 		JSONObject obj = makeGetRequest(TwitterEndpoint.TWEETS.getURL(userID), "exclude", "replies,retweets", "tweet.fields", "created_at", "since_id", lastTweetID, "max_results", "100");
-		if(obj.containsKey("errors")) return Collections.emptyList();
+		if(obj.containsKey("errors") || !obj.containsKey("data")) return Collections.emptyList();
 		return obj.getJSONArray("data").stream()
 				.map(t -> JSONConverter.decodeObject((JSONObject) t, Tweet.class))
 				.collect(Collectors.toList());
