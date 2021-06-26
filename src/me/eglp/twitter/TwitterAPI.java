@@ -62,7 +62,7 @@ public class TwitterAPI {
 	}
 	
 	public List<Tweet> getTimeline(String userID, int tweetCount) {
-		if(tweetCount > 100 || tweetCount < 1) throw new IllegalArgumentException("tweetCount cannot be more than 100 or less than 1");
+		if(tweetCount > 100 || tweetCount < 5) throw new IllegalArgumentException("tweetCount cannot be more than 100 or less than 5");
 		JSONObject o = makeGetRequest(TwitterEndpoint.TWEETS.getURL(userID), "exclude", "replies,retweets", "tweet.fields", "created_at", "max_results", String.valueOf(tweetCount));
 		if(o.containsKey("errors")) return Collections.emptyList();
 		return o.getJSONArray("data").stream()
@@ -71,7 +71,7 @@ public class TwitterAPI {
 	}
 	
 	public Tweet getLatestTweet(String userID) {
-		List<Tweet> t = getTimeline(userID, 1);
+		List<Tweet> t = getTimeline(userID, 5);
 		if(t.isEmpty()) return null;
 		return t.get(0);
 	}
