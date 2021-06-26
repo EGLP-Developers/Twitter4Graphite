@@ -54,7 +54,7 @@ public class TwitterAPI {
 	}
 	
 	public List<Tweet> getTimelineSince(String userID, String lastTweetID) {
-		JSONObject obj = makeGetRequest(TwitterEndpoint.TWEETS.getURL(userID), "exclude", "replies,retweets", "tweet.fields", "created_at", "since_id", lastTweetID, "max_results", "100", "tweet.fields", "text");
+		JSONObject obj = makeGetRequest(TwitterEndpoint.TWEETS.getURL(userID), "exclude", "replies,retweets", "tweet.fields", "created_at", "since_id", lastTweetID, "max_results", "100");
 		if(obj.containsKey("errors")) return Collections.emptyList();
 		return obj.getJSONArray("data").stream()
 				.map(t -> JSONConverter.decodeObject((JSONObject) t, Tweet.class))
