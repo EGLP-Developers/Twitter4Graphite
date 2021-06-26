@@ -54,7 +54,7 @@ public class TwitterAPI {
 	}
 	
 	public List<Tweet> getTimelineSince(String userID, String lastTweetID) {
-		JSONObject obj = makeGetRequest(TwitterEndpoint.TWEETS.getURL(userID), "exclude", "replies,retweets", "since_id", lastTweetID, "max_results", "100", "tweet.fields", "text");
+		JSONObject obj = makeGetRequest(TwitterEndpoint.TWEETS.getURL(userID), "exclude", "replies,retweets", "tweet.fields", "created_at", "since_id", lastTweetID, "max_results", "100", "tweet.fields", "text");
 		if(obj.containsKey("errors")) return Collections.emptyList();
 		return obj.getJSONArray("data").stream()
 				.map(t -> JSONConverter.decodeObject((JSONObject) t, Tweet.class))
@@ -63,7 +63,7 @@ public class TwitterAPI {
 	
 	public List<Tweet> getTimeline(String userID, int tweetCount) {
 		if(tweetCount > 100 || tweetCount < 1) throw new IllegalArgumentException("tweetCount cannot be more than 100 or less than 1");
-		JSONObject o = makeGetRequest(TwitterEndpoint.TWEETS.getURL(userID), "exclude", "replies,retweets", "max_results", String.valueOf(tweetCount));
+		JSONObject o = makeGetRequest(TwitterEndpoint.TWEETS.getURL(userID), "exclude", "replies,retweets", "tweet.fields", "created_at", "max_results", String.valueOf(tweetCount));
 		if(o.containsKey("errors")) return Collections.emptyList();
 		return o.getJSONArray("data").stream()
 				.map(t -> JSONConverter.decodeObject((JSONObject) t, Tweet.class))
