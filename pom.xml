@@ -4,9 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>me.eglp</groupId>
 	<artifactId>Twitter4Graphite</artifactId>
-	<version>1.6</version>
+	<version>1.7</version>
 	<build>
-		<sourceDirectory>src</sourceDirectory>
+		<sourceDirectory>src/main/java</sourceDirectory>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -64,7 +64,7 @@
 	<repositories>
 		<repository>
 			<id>Graphite-Official</id>
-			<url>https://graphite-official.com/repo/</url>
+			<url>https://maven.graphite-official.com/</url>
 		</repository>
 	</repositories>
 
@@ -72,7 +72,18 @@
 		<dependency>
 			<groupId>me.mrletsplay</groupId>
 			<artifactId>MrCore</artifactId>
-			<version>3.3.1</version>
+			<version>4.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>me.eglp</groupId>
+			<artifactId>APIBase</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13.2</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>
