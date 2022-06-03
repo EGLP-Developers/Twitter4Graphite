@@ -16,11 +16,12 @@ public enum TwitterEndpoint implements Endpoint {
 			.dynamicQuery("max_results", "results")
 			.dynamicQuery("since_id", "since")
 			.create()),
-	USER_BY_ID(EndpointDescriptor.builder(DefaultRequestMethod.GET, TwitterAPI.ENDPOINT +  "users/%s")
+	USER_BY_ID(EndpointDescriptor.builder(DefaultRequestMethod.GET, TwitterAPI.ENDPOINT +  "users/{id}")
 			.query("user.fields", "profile_image_url")
 			.create()),
 	USERS_BY_ID(EndpointDescriptor.builder(DefaultRequestMethod.GET, TwitterAPI.ENDPOINT + "users")
 			.query("user.fields", "profile_image_url")
+			.dynamicQuery("ids", "ids")
 			.create()),
 	USERS_BY(EndpointDescriptor.builder(DefaultRequestMethod.GET, TwitterAPI.ENDPOINT + "users/by")
 			.query("user.fields", "profile_image_url")
